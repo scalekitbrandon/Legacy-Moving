@@ -1,0 +1,36 @@
+{
+  "slug": "legacy-moving",
+  "business": {
+    "name": "Legacy Moving Company",
+    "industry": "Moving / relocation services",
+    "audience": "Residential local moves"
+  },
+  "pages": [
+    "Home",
+    "Services",
+    "Service Areas",
+    "About",
+    "Testimonials/Reviews",
+    "Contact/Get a Quote"
+  ],
+  "referenceSite": {
+    "used": false,
+    "url": "",
+    "screenshots": []
+  },
+  "brand": {
+    "hasExistingAssets": true,
+    "assets": [
+      "Color palette (client-supplied, blue + gold): Navy #000031, Bronze #856722, Dark Gold #B0882F, Gold #C59735, Bright Gold #E4B03E"
+    ],
+    "notes": "Typography pending — Brandon to supply reference screenshots for font direction only (not structural clone)."
+  },
+  "contentSources": [
+    "ScaleKit copywriting skill — written from scratch, no client doc provided"
+  ],
+  "contentTypes": [],
+  "interactivity": [
+    "Quote request / contact form"
+  ],
+  "hosting": "Cloudflare Pages (standard client deploy SOP)"
+}

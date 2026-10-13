@@ -1,0 +1,177 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import TrustPoints from '../../components/TrustPoints.astro';
+import ClosingCta from '../../components/ClosingCta.astro';
+import BreadcrumbSchema from '../../components/BreadcrumbSchema.astro';
+import { navLinks, footerGroups, PHONE, EMAIL } from '../../data/site';
+
+const breadcrumbItems = [
+  { label: 'Home', url: new URL('/', Astro.site).toString() },
+  { label: 'About', url: new URL('/about/', Astro.site).toString() },
+];
+---
+
+<BaseLayout
+  title="About Legacy Moving Co. | Bozeman, MT Movers"
+  description="Legacy Moving Co. is a Bozeman, Montana moving company serving the Gallatin Valley and Southwest Montana with local, long-distance, and specialty moving services."
+>
+  <BreadcrumbSchema slot="header" items={breadcrumbItems} />
+  <Header slot="header" links={navLinks} phone={PHONE} ctaLabel="Get a Quote" ctaHref="/#quote" />
+
+  <section class="about-hero">
+    <div class="container">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span aria-hidden="true">/</span>
+        <span>About</span>
+      </nav>
+      <h1>About Legacy Moving Co.</h1>
+      <p class="about-intro">
+        Legacy Moving Co. is a Bozeman-based moving company serving the Gallatin Valley and Southwest Montana, from
+        local moves across town to long-distance moves in and out of the state.
+      </p>
+    </div>
+  </section>
+
+  <section class="about-section">
+    <div class="container prose">
+      <h2>What We Do</h2>
+      <p>
+        We handle residential and commercial moves of every size: local moves, long-distance moves, full and partial
+        packing, and specialty services including white glove moving, custom crating, and art moving. Every move
+        starts with an itemized quote, so the price you approve is the price you pay.
+      </p>
+      <p>
+        We're based in Bozeman and serve the surrounding communities, including Belgrade, Four Corners, Gallatin
+        Gateway, Manhattan, Livingston, Big Sky, Three Forks, Ennis, West Yellowstone, and Paradise Valley.
+      </p>
+    </div>
+  </section>
+
+  <section class="team-section">
+    <div class="container">
+      <h2>The Team Behind Every Move</h2>
+      <p class="team-intro">Real photos from real moves around Bozeman and Southwest Montana.</p>
+      <div class="team-grid">
+        <img
+          src="/legacy-moving-owner-bozeman-mt.jpg"
+          alt="Owner of Legacy Moving Co. standing in front of a moving truck in Bozeman, Montana"
+          loading="lazy"
+        />
+        <img
+          src="/legacy-moving-owner-furniture-moving-truck-bozeman-mt.jpg"
+          alt="Legacy Moving Co. owner moving wrapped furniture inside a moving truck in Bozeman, Montana"
+          loading="lazy"
+        />
+        <img
+          src="/legacy-moving-truck-ramp-residential-move-bozeman-mt.jpg"
+          alt="Legacy Moving Co. crew member wheeling boxes down a moving truck ramp during a residential move in Bozeman, Montana"
+          loading="lazy"
+        />
+      </div>
+    </div>
+  </section>
+
+  <TrustPoints />
+
+  <ClosingCta phone={PHONE} quoteHref="/#quote" />
+
+  <Footer slot="footer" logoText="Legacy Moving Co." groups={footerGroups} phone={PHONE} email={EMAIL} />
+</BaseLayout>
+
+<style>
+  .about-hero {
+    background: var(--color-dark);
+    color: var(--color-dark-fg);
+    padding-block: var(--space-7);
+  }
+  .crumbs {
+    display: flex;
+    gap: 8px;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: var(--space-4);
+  }
+  .crumbs a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+  }
+  .about-hero h1 {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: clamp(2.2rem, 4.2vw, 3.2rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    margin-bottom: var(--space-4);
+  }
+  .about-intro {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.82);
+    max-width: 62ch;
+  }
+
+  .about-section {
+    background: var(--color-bg);
+    padding-block: var(--space-8);
+  }
+  .prose {
+    max-width: 760px;
+  }
+  .prose h2 {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    color: var(--color-fg);
+    margin-bottom: var(--space-4);
+  }
+  .prose p {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--color-gray);
+    margin-bottom: var(--space-3);
+  }
+
+  .team-section {
+    background: var(--color-muted);
+    padding-block: var(--space-8);
+  }
+  .team-section h2 {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    color: var(--color-fg);
+    margin-bottom: var(--space-2);
+  }
+  .team-intro {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    color: var(--color-gray);
+    margin-bottom: var(--space-6);
+  }
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-5);
+  }
+  .team-grid img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    display: block;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 20px 50px rgba(1, 19, 47, 0.15);
+  }
+
+  @media (max-width: 860px) {
+    .team-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

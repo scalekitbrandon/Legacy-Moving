@@ -1,0 +1,42 @@
+/*
+  Legacy Moving — brand tokens.
+  Palette matched to the client's real logo (public/logo.png): Navy #01132F,
+  Logo Gold #D5AF65, Dark Gold accent #8A6C3D (text on white), Light Gold
+  accent #E8CA8A (badge text on navy).
+  Type: Plus Jakarta Sans (headings) + Inter (body).
+*/
+:root {
+  --color-bg: #ffffff;
+  --color-fg: #01132f;
+  --color-primary: #d5af65;
+  --color-primary-fg: #01132f;
+  --color-accent: #8a6c3d;
+  --color-accent-2: #e8ca8a;
+  --color-muted: #f5f6fa;
+  --color-border: #e2e4ec;
+  --color-gray: #5a5f73;
+  --color-dark: #01132f;
+  --color-dark-fg: #ffffff;
+
+  --font-heading: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-weight-max: 800;
+  --font-weight-button: 600;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
+  --space-6: 48px;
+  --space-7: 64px;
+  --space-8: 96px;
+
+  --container-max: 1200px;
+  --container-wide: 1500px;
+}

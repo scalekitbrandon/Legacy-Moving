@@ -1,0 +1,130 @@
+---
+interface RatingItem {
+  type: 'rating';
+  rating: string;
+  label: string;
+}
+interface StatItem {
+  type: 'stat';
+  value: string;
+  label: string;
+}
+type TrustItem = RatingItem | StatItem;
+
+const items: TrustItem[] = [
+  { type: 'stat', value: '10+', label: 'Years Experience' },
+  { type: 'stat', value: '500+', label: 'Happy Customers' },
+  { type: 'rating', rating: '5.0', label: 'Google Rating' },
+  { type: 'stat', value: '11', label: 'Montana Communities Served' },
+];
+---
+
+<section class="trust-bar" aria-label="Customer ratings and experience">
+  <div class="trust-row">
+    {items.map((item, i) => (
+      <>
+        <div class="trust-item">
+          {item.type === 'rating' && (
+            <>
+              <span class="trust-value">{item.rating}</span>
+              <span class="trust-text">
+                <span class="trust-label">{item.label}</span>
+                <span class="trust-stars" aria-hidden="true">★★★★★</span>
+              </span>
+            </>
+          )}
+          {item.type === 'stat' && (
+            <span class="trust-text stat-only">
+              <span class="trust-value">{item.value}</span>
+              <span class="trust-label">{item.label}</span>
+            </span>
+          )}
+        </div>
+        {i < items.length - 1 && <span class="trust-divider" aria-hidden="true"></span>}
+      </>
+    ))}
+  </div>
+</section>
+
+<style>
+  .trust-bar {
+    background: var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 130px;
+  }
+
+  .trust-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--space-6);
+    padding-inline: var(--space-4);
+  }
+
+  .trust-divider {
+    width: 1px;
+    height: 36px;
+    background: rgba(1, 19, 47, 0.25);
+    flex-shrink: 0;
+  }
+
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex-shrink: 0;
+  }
+
+  .trust-value {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 1.9rem;
+    color: var(--color-primary-fg);
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .trust-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .trust-text.stat-only {
+    gap: 2px;
+  }
+
+  .trust-label {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--color-primary-fg);
+    white-space: nowrap;
+  }
+
+  .trust-stars {
+    color: var(--color-primary-fg);
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+  }
+
+  @media (max-width: 900px) {
+    .trust-divider {
+      display: none;
+    }
+    .trust-row {
+      gap: var(--space-4);
+    }
+  }
+  @media (max-width: 640px) {
+    .trust-bar {
+      height: auto;
+      padding-block: var(--space-4);
+    }
+    .trust-value {
+      font-size: 1.5rem;
+    }
+  }
+</style>

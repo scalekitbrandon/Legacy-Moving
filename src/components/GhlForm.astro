@@ -1,0 +1,46 @@
+---
+// Shared GoHighLevel quote form embed. Same form (id t5mQKUGNG5hTxfHl3RvI) is
+// reused everywhere it appears on the site — don't create a second GHL form,
+// just reuse this component in each location.
+//
+// Height is intentionally NOT fixed here. GHL's form_embed.js actively
+// resizes the iframe element itself to match the form's real content height
+// (it sets iframe.style.height in JS once the form loads). A fixed-height
+// wrapper around it just leaves dead space whenever the form's height
+// changes in the GHL builder — this wrapper stays height:auto and lets the
+// iframe's own dynamically-set height drive the box size.
+interface Props {
+  /** Initial height before GHL's resize script kicks in, to avoid a flash of a tiny iframe. */
+  initialHeight?: number;
+}
+
+const { initialHeight = 500 } = Astro.props;
+---
+
+<div class="ghl-form-embed">
+  <iframe
+    src="https://api.leadconnectorhq.com/widget/form/t5mQKUGNG5hTxfHl3RvI"
+    style={`width:100%;height:${initialHeight}px;border:none;border-radius:8px;display:block`}
+    id="inline-t5mQKUGNG5hTxfHl3RvI"
+    data-layout="{'id':'INLINE'}"
+    data-trigger-type="alwaysShow"
+    data-trigger-value=""
+    data-activation-type="alwaysActivated"
+    data-activation-value=""
+    data-deactivation-type="neverDeactivate"
+    data-deactivation-value=""
+    data-form-name="Moving Company Form - Legacy Moving"
+    data-layout-iframe-id="inline-t5mQKUGNG5hTxfHl3RvI"
+    data-form-id="t5mQKUGNG5hTxfHl3RvI"
+    data-cookie-consent="true"
+    data-cookie-consent-provider="auto"
+    title="Moving Company Form - Legacy Moving"
+  ></iframe>
+</div>
+<script src="https://link.msgsndr.com/js/form_embed.js"></script>
+
+<style>
+  .ghl-form-embed {
+    width: 100%;
+  }
+</style>

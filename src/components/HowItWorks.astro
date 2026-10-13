@@ -1,0 +1,175 @@
+---
+interface Step {
+  number: string;
+  title: string;
+  body: string;
+  icon: string;
+}
+
+const steps: Step[] = [
+  {
+    number: '01',
+    title: 'Get Your Free Quote',
+    body: 'Tell us where you\'re moving from and to. We put together a clear, itemized quote — no walkthrough required for most local moves.',
+    icon: '<path d="M7 3h7l4 4v14a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z" /><path d="M14 3v4h4" /><path d="m9.5 14 1.8 1.8L15 12" />',
+  },
+  {
+    number: '02',
+    title: 'We Confirm the Details',
+    body: 'Pick your date and we lock in the crew, truck, and any building requirements — COIs, elevator windows, parking permits — ahead of time.',
+    icon: '<rect x="3" y="5" width="18" height="16" rx="2" /><line x1="3" y1="10" x2="21" y2="10" /><line x1="8" y1="3" x2="8" y2="7" /><line x1="16" y1="3" x2="16" y2="7" />',
+  },
+  {
+    number: '03',
+    title: 'Moving Day',
+    body: 'Our crew arrives on time, protects your floors and furniture, and handles the loading, transport, and unloading from start to finish.',
+    icon: '<path d="M3 6h11v9H3zM14 10h4l3 3v2h-7zM7 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM18 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" />',
+  },
+  {
+    number: '04',
+    title: "You're Settled In",
+    body: 'We place everything where you want it, do a final walkthrough with you, and you start living in your new place — nothing left in boxes on the truck.',
+    icon: '<path d="M4 11.5 12 4l8 7.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1z" />',
+  },
+];
+---
+
+<section class="how-it-works">
+  <div class="container">
+    <div class="how-header">
+      <h2>How We <span class="accent">Work</span></h2>
+      <p>From quote to move-in, here's exactly what to expect.</p>
+    </div>
+
+    <div class="how-grid">
+      {steps.map((step, i) => (
+        <div class="how-step">
+          <div class="how-icon-wrap">
+            <span class="how-number">{step.number}</span>
+            <span class="how-icon" aria-hidden="true">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                set:html={step.icon}
+              />
+            </span>
+          </div>
+          <h3>{step.title}</h3>
+          <p>{step.body}</p>
+          {i < steps.length - 1 && <span class="how-connector" aria-hidden="true"></span>}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .how-it-works {
+    background: var(--color-bg);
+    padding-block: var(--space-8);
+  }
+
+  .how-header {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto var(--space-7);
+  }
+  .how-header h2 {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: clamp(2.4rem, 4vw, 3.4rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--color-fg);
+    margin-bottom: var(--space-3);
+  }
+  .how-header h2 .accent {
+    color: var(--color-primary);
+  }
+  .how-header p {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    color: var(--color-gray);
+  }
+
+  .how-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-5);
+  }
+
+  .how-step {
+    position: relative;
+    text-align: center;
+    padding-inline: var(--space-3);
+  }
+
+  .how-icon-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 84px;
+    height: 84px;
+    margin: 0 auto var(--space-4);
+    border-radius: 50%;
+    background: var(--color-dark);
+    color: var(--color-primary);
+  }
+  .how-number {
+    position: absolute;
+    top: -8px;
+    right: -6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    color: var(--color-primary-fg);
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 0.75rem;
+    border: 3px solid var(--color-bg);
+  }
+
+  .how-connector {
+    position: absolute;
+    top: 42px;
+    left: calc(50% + 60px);
+    width: calc(100% - 120px);
+    height: 2px;
+    background: var(--color-border);
+  }
+
+  .how-step h3 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--color-fg);
+    margin-bottom: var(--space-2);
+  }
+  .how-step p {
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: var(--color-gray);
+  }
+
+  @media (max-width: 900px) {
+    .how-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+    }
+    .how-connector {
+      display: none;
+    }
+  }
+</style>

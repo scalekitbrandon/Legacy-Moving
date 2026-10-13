@@ -1,0 +1,327 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+import HowItWorks from './HowItWorks.astro';
+import ClosingCta from './ClosingCta.astro';
+import BreadcrumbSchema from './BreadcrumbSchema.astro';
+import { services } from '../data/services';
+import { areas, type Area } from '../data/areas';
+import { navLinks, footerGroups, PHONE, EMAIL } from '../data/site';
+
+interface Props {
+  area: Area;
+}
+
+const { area } = Astro.props;
+const phoneHref = `tel:${PHONE.replace(/[^\d+]/g, '')}`;
+const breadcrumbItems = [
+  { label: 'Home', url: new URL('/', Astro.site).toString() },
+  { label: 'Service Areas', url: new URL('/#service-areas', Astro.site).toString() },
+  { label: area.name, url: new URL(`/moving-company-${area.slug}/`, Astro.site).toString() },
+];
+const title = `Moving Company in ${area.name}, MT | Legacy Moving Co.`;
+const description = `Legacy Moving Co. is a moving company serving ${area.name}, Montana. Local and long-distance moving, packing, and specialty services. Get a free quote.`;
+
+const otherAreas = areas.filter((a) => a.slug !== area.slug).slice(0, 4);
+
+const faq = [
+  {
+    q: `Does Legacy Moving serve ${area.name}?`,
+    a: area.availability,
+  },
+  ...(area.distance && area.distance !== 'Home base'
+    ? [{ q: `How far is ${area.name} from Bozeman?`, a: `${area.name} is ${area.distance}.` }]
+    : []),
+  {
+    q: `What services are available in ${area.name}?`,
+    a: `All of our services are available in ${area.name}, including local and long-distance moving, packing and unpacking, white glove and luxury moving, custom crating, art moving, and commercial moves.`,
+  },
+];
+
+const faqSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+});
+---
+
+<BaseLayout title={title} description={description}>
+  <BreadcrumbSchema slot="header" items={breadcrumbItems} />
+  <Header slot="header" links={navLinks} phone={PHONE} ctaLabel="Get a Quote" ctaHref="/#quote" />
+
+  <section class="area-hero">
+    <div class="container">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span aria-hidden="true">/</span>
+        <a href="/#service-areas">Service Areas</a>
+        <span aria-hidden="true">/</span>
+        <span>{area.name}</span>
+      </nav>
+      <h1>Moving Company in {area.name}, MT</h1>
+      <p class="area-intro">
+        {area.distance && area.distance !== 'Home base' ? `${area.name} is ${area.distance}. ` : ''}
+        {area.availability}
+      </p>
+      <div class="area-actions">
+        <a class="btn-primary" href="/#quote">Get My Free Quote</a>
+        <a class="btn-secondary" href={phoneHref}>Call {PHONE}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="area-section">
+    <div class="container">
+      <h2>Our Services in {area.name}</h2>
+      <div class="area-services-grid">
+        {services.map((service) => (
+          <a class="area-service-card" href={`/services/${service.slug}/`}>
+            <span class="area-service-name">{service.cardTitle}</span>
+            <span class="area-service-body">{service.cardBody}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <HowItWorks />
+
+  <section class="area-section area-section--muted">
+    <div class="container prose">
+      <h2>Frequently asked questions</h2>
+      {faq.map((item) => (
+        <details class="faq-item">
+          <summary>
+            <span>{item.q}</span>
+            <svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </summary>
+          <p class="faq-answer">{item.a}</p>
+        </details>
+      ))}
+    </div>
+    <script type="application/ld+json" set:html={faqSchema} />
+  </section>
+
+  {
+    otherAreas.length > 0 && (
+      <section class="area-section">
+        <div class="container">
+          <h2 class="related-title">Other areas we serve</h2>
+          <div class="related-grid">
+            {otherAreas.map((other) => (
+              <a class="related-chip" href={`/moving-company-${other.slug}/`}>{other.name}</a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <ClosingCta phone={PHONE} quoteHref="/#quote" />
+
+  <Footer slot="footer" logoText="Legacy Moving Co." groups={footerGroups} phone={PHONE} email={EMAIL} />
+</BaseLayout>
+
+<style>
+  .area-hero {
+    background: var(--color-dark);
+    color: var(--color-dark-fg);
+    padding-block: var(--space-7) var(--space-8);
+  }
+  .crumbs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: var(--space-4);
+  }
+  .crumbs a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+  }
+  .area-hero h1 {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: clamp(2.2rem, 4.2vw, 3.4rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    max-width: 22ch;
+    margin-bottom: var(--space-4);
+  }
+  .area-intro {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.82);
+    max-width: 62ch;
+    margin-bottom: var(--space-5);
+  }
+  .area-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+  .btn-primary,
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 26px;
+    border-radius: var(--radius-pill);
+    text-decoration: none;
+    font-weight: 700;
+    font-family: var(--font-heading);
+  }
+  .btn-primary {
+    background: var(--color-primary);
+    color: var(--color-primary-fg);
+  }
+  .btn-secondary {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+  }
+
+  .area-section {
+    padding-block: var(--space-8);
+    background: var(--color-bg);
+    scroll-margin-top: 96px;
+  }
+  .area-section--muted {
+    background: var(--color-muted);
+  }
+  .area-section h2 {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--color-fg);
+    margin-bottom: var(--space-5);
+  }
+  .prose {
+    max-width: 760px;
+  }
+  .prose h2 {
+    margin-bottom: var(--space-4);
+  }
+
+  .area-services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-4);
+  }
+  .area-service-card {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: var(--space-4);
+    border: 2px solid var(--color-dark);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    color: var(--color-fg);
+    background: #ffffff;
+    transition: transform 0.15s ease;
+  }
+  .area-service-card:hover {
+    transform: translateY(-4px);
+  }
+  .area-service-name {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 1rem;
+    text-transform: uppercase;
+  }
+  .area-service-body {
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--color-gray);
+  }
+
+  .faq-item {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: #ffffff;
+    padding: var(--space-3) var(--space-4);
+    margin-bottom: var(--space-3);
+  }
+  .faq-item[open] {
+    border-color: var(--color-primary);
+  }
+  .faq-item summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    cursor: pointer;
+    list-style: none;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--color-fg);
+  }
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq-item .chevron {
+    flex-shrink: 0;
+    color: var(--color-gray);
+    transition: transform 0.2s ease;
+  }
+  .faq-item[open] .chevron {
+    transform: rotate(180deg);
+    color: var(--color-primary);
+  }
+  .faq-answer {
+    font-family: var(--font-body);
+    font-size: 0.98rem;
+    line-height: 1.7;
+    color: var(--color-gray);
+    margin-top: var(--space-3);
+  }
+
+  .related-title {
+    margin-bottom: var(--space-4);
+  }
+  .related-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+  .related-chip {
+    padding: 12px 22px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--color-border);
+    background: #ffffff;
+    color: var(--color-fg);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.92rem;
+    text-decoration: none;
+  }
+  .related-chip:hover {
+    border-color: var(--color-primary);
+    color: var(--color-accent);
+  }
+
+  @media (max-width: 1100px) {
+    .area-services-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 560px) {
+    .area-services-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

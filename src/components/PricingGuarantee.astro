@@ -1,0 +1,146 @@
+---
+interface Feature {
+  title: string;
+  body: string;
+  icon: string;
+}
+
+const features: Feature[] = [
+  {
+    title: 'All-Inclusive Quote',
+    body: 'Labor, truck, fuel, and supplies. Everything your move requires is accounted for in one clear number before you commit.',
+    icon: '<path d="M7 3h7l4 4v14a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z" /><path d="M14 3v4h4" /><path d="m9.5 14 1.8 1.8L15 12" />',
+  },
+  {
+    title: 'Zero Hidden Fees',
+    body: 'Whatever we quote you for the move is mentioned up front. No surprise charges once the truck is loaded and moving.',
+    icon: '<path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3z" /><path d="m9 12 2 2 4-4" />',
+  },
+  {
+    title: 'Price-Lock Guarantee',
+    body: 'Once you approve your quote, that number is locked. Even if the move runs longer than expected, the price does not change.',
+    icon: '<circle cx="12" cy="12" r="9" /><line x1="12" y1="6.5" x2="12" y2="17.5" /><path d="M15 9.2c0-1-1-1.7-3-1.7s-3.2.9-3.2 2c0 3 6.4 1.3 6.4 4.3 0 1.2-1.3 2-3.2 2s-3-.7-3-1.7" />',
+  },
+];
+---
+
+<section class="pricing-guarantee">
+  <div class="container guarantee-inner">
+    <span class="guarantee-badge">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <path d="M12 2v20M17 6.5c0-1.9-2.2-3.5-5-3.5s-5 1.4-5 3.5 2.2 3 5 3.5 5 1.6 5 3.5-2.2 3.5-5 3.5-5-1.6-5-3.5" />
+      </svg>
+      Pricing Guarantee
+    </span>
+
+    <h2>The Price We Quote Is the <span class="accent">Price You Pay.</span></h2>
+
+    <p class="guarantee-sub">
+      We send you a clear, itemized quote before anything is confirmed. It covers every service your move
+      requires, with nothing added on afterward. What you approve is what you pay.
+    </p>
+
+    <div class="guarantee-grid">
+      {features.map((feature) => (
+        <div class="guarantee-feature">
+          <span class="guarantee-icon" set:html={`<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${feature.icon}</svg>`} />
+          <h3>{feature.title}</h3>
+          <p>{feature.body}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .pricing-guarantee {
+    background: var(--color-dark);
+    padding-block: var(--space-8);
+  }
+  .guarantee-inner {
+    text-align: center;
+  }
+
+  .guarantee-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 18px;
+    border-radius: var(--radius-pill);
+    background: rgba(213, 175, 101, 0.12);
+    border: 1px solid rgba(213, 175, 101, 0.3);
+    color: var(--color-primary);
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-bottom: var(--space-4);
+  }
+
+  .guarantee-inner h2 {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: clamp(2rem, 3.6vw, 2.9rem);
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    color: #ffffff;
+    max-width: 760px;
+    margin: 0 auto var(--space-4);
+  }
+  .guarantee-inner h2 .accent {
+    color: var(--color-primary);
+  }
+
+  .guarantee-sub {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.65);
+    max-width: 680px;
+    margin: 0 auto var(--space-7);
+  }
+
+  .guarantee-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+    text-align: center;
+  }
+
+  .guarantee-feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .guarantee-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: var(--radius-md);
+    background: rgba(213, 175, 101, 0.1);
+    border: 1px solid rgba(213, 175, 101, 0.25);
+    color: var(--color-primary);
+    margin-bottom: var(--space-4);
+  }
+  .guarantee-feature h3 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: #ffffff;
+    margin-bottom: var(--space-2);
+  }
+  .guarantee-feature p {
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.55);
+    max-width: 320px;
+  }
+
+  @media (max-width: 800px) {
+    .guarantee-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+    }
+  }
+</style>

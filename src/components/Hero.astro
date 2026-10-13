@@ -1,0 +1,319 @@
+---
+import GhlForm from './GhlForm.astro';
+
+interface Props {
+  backgroundImage?: string;
+}
+
+const { backgroundImage } = Astro.props;
+---
+
+<section class="hero" style={backgroundImage ? `--hero-bg: url(${backgroundImage})` : ''}>
+  <div class="hero-media" aria-hidden="true"></div>
+  <div class="hero-overlay" aria-hidden="true"></div>
+
+  <div class="container hero-inner">
+    <div class="hero-copy">
+      <span class="hero-badge">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path
+            d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3z"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linejoin="round"
+          />
+        </svg>
+        Licensed &amp; Insured Local Movers
+      </span>
+
+      <h1>
+        <span class="accent">Legacy Moving</span>
+        Bozeman Moving Company | Trusted Movers in Bozeman, Montana
+      </h1>
+
+      <p class="hero-sub">
+        Professional local and long-distance moving across Bozeman, Big Sky, Belgrade, Livingston, and Southwest
+        Montana. From apartments and family homes to art and antiques, we handle every move with care.
+      </p>
+
+      <div class="hero-info-row">
+        <a class="info-box" href="tel:406-539-9641">
+          <span class="info-label">Call Us Now</span>
+          <span class="info-value">406-539-9641</span>
+        </a>
+        <div class="info-box">
+          <span class="info-label">Every Move Includes</span>
+          <span class="info-value">Free, No-Obligation Quotes</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-form-col">
+      <div class="hero-form-card" id="quote">
+        <h2>Get Your Free Quote</h2>
+        <p class="hero-form-sub">Takes under 60 seconds</p>
+
+        <GhlForm />
+
+        <div class="hero-form-trust">
+          <span>✓ No spam</span>
+          <span>✓ No obligation</span>
+          <span>✓ Free estimate</span>
+        </div>
+      </div>
+
+      <div class="trust-signals">
+        {[
+          'Free estimates',
+          'No hidden fees',
+          'Reliable timelines',
+          'Award-winning service',
+        ].map((label) => (
+          <div class="trust-signal">
+            <span class="trust-signal-badge" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                <path d="M5 13l4 4L19 7" stroke="#01132f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+            <span>{label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    /* Header (72px, fixed) + this section + TrustBar (130px) fill
+       exactly 100vh — so hero + trust bar together own the entire above-the-fold view. */
+    min-height: calc(100vh - 72px - 130px);
+    padding-block: var(--space-7);
+    overflow: hidden;
+    background: var(--color-dark);
+  }
+  .hero-media {
+    position: absolute;
+    inset: 0;
+    background: var(--hero-bg, linear-gradient(135deg, #061233 0%, #01132f 55%, #8a6c3d 100%)) center / cover
+      no-repeat;
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(1, 19, 47, 0.92) 0%, rgba(1, 19, 47, 0.55) 60%, rgba(1, 19, 47, 0.3) 100%);
+  }
+
+  .hero-inner {
+    max-width: var(--container-wide);
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: var(--space-7);
+    align-items: center;
+  }
+
+  .hero-copy {
+    position: relative;
+    top: calc(var(--space-5) * -1);
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8.6px;
+    padding: 8.6px 17.3px;
+    border-radius: var(--radius-pill);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: var(--color-accent-2);
+    font-size: 0.864rem;
+    font-weight: 600;
+    margin-bottom: var(--space-4);
+  }
+
+  .hero-copy h1 {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: clamp(2.6rem, 5.2vw, 4.2rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    margin-bottom: var(--space-4);
+  }
+  .hero-copy h1 .accent {
+    display: block;
+    color: var(--color-primary);
+    margin-bottom: 4px;
+  }
+
+  .hero-copy h1 .nowrap {
+    white-space: nowrap;
+  }
+
+  .hero-sub {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.82);
+    max-width: 46ch;
+    margin-bottom: var(--space-5);
+  }
+
+  .hero-info-row {
+    display: flex;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+  }
+  .info-box {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 12px 20px;
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    text-decoration: none;
+  }
+  .info-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-gray);
+  }
+  .info-value {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    font-family: var(--font-heading);
+  }
+
+  .hero-form-col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .hero-form-card {
+    position: relative;
+    scroll-margin-top: 96px;
+    width: 90%;
+    align-self: center;
+    background: #ffffff;
+    border-radius: var(--radius-lg);
+    padding: 29px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  }
+  .hero-form-card h2 {
+    font-family: var(--font-heading);
+    font-size: 1.17rem;
+    font-weight: 800;
+    color: var(--color-fg);
+    text-align: center;
+    margin-bottom: 4px;
+  }
+  .hero-form-sub {
+    text-align: center;
+    color: var(--color-gray);
+    font-size: 0.77rem;
+    margin-bottom: 22px;
+  }
+  .hero-form-card form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .hero-form-card label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--color-fg);
+    margin-bottom: -5px;
+  }
+  .form-row {
+    display: flex;
+    gap: 14px;
+  }
+  .form-field {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    min-width: 0;
+  }
+  .hero-form-card input {
+    padding: 11px 13px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+    font-family: var(--font-body);
+    font-size: 0.86rem;
+  }
+  .hero-form-card button {
+    margin-top: 7px;
+    padding: 13px;
+    border-radius: var(--radius-md);
+    border: none;
+    background: var(--color-primary);
+    color: var(--color-primary-fg);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
+  .hero-form-trust {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 14px;
+    font-size: 0.68rem;
+    color: var(--color-gray);
+    flex-wrap: wrap;
+  }
+
+  .trust-signals {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    row-gap: var(--space-3);
+    column-gap: var(--space-4);
+    max-width: 90%;
+    margin-inline: auto;
+    padding-inline: var(--space-2);
+  }
+  .trust-signal {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #ffffff;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.95rem;
+  }
+  .trust-signal-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 900px) {
+    .hero-inner {
+      grid-template-columns: 1fr;
+    }
+    .hero {
+      padding-block: var(--space-6);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero {
+      min-height: calc(100vh - 72px - 106px);
+    }
+  }
+</style>

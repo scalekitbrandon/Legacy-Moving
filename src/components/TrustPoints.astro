@@ -1,0 +1,101 @@
+---
+interface Point {
+  title: string;
+  body: string;
+  icon: string;
+}
+
+const points: Point[] = [
+  {
+    title: 'Licensed & Insured',
+    body: 'Licensed and insured movers serving Bozeman and Southwest Montana. Your belongings are covered from pickup to delivery.',
+    icon: '<circle cx="12" cy="8" r="5" /><path d="M8.5 12.5 7 21l5-3 5 3-1.5-8.5" />',
+  },
+  {
+    title: 'On-Time Crews',
+    body: 'We confirm your arrival window in advance, and our crew shows up on time, ready to work.',
+    icon: '<circle cx="12" cy="12" r="9" /><path d="M12 7v5l3.5 2" />',
+  },
+  {
+    title: 'Care in Every Move',
+    body: "Your move isn't just a job to us. Every item gets the same care whether it's a studio apartment or an art collection.",
+    icon: '<path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9z" />',
+  },
+];
+---
+
+<section class="trust-points">
+  <div class="container">
+    <div class="trust-grid">
+      {points.map((point) => (
+        <div class="trust-card">
+          <span class="trust-ribbon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" set:html={point.icon} />
+          </span>
+          <h3>{point.title}</h3>
+          <p>{point.body}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .trust-points {
+    background: var(--color-bg);
+    padding-block: var(--space-7) var(--space-8);
+  }
+
+  .trust-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-5);
+  }
+
+  .trust-card {
+    position: relative;
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+    padding-top: 72px;
+    border-bottom: 3px solid var(--color-primary);
+  }
+
+  .trust-ribbon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 76px;
+    height: 76px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 12px 0 0 12px;
+    background: var(--color-primary);
+    color: var(--color-dark);
+    clip-path: polygon(0 0, 100% 0, 0 100%);
+  }
+
+  .trust-card h3 {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 1.25rem;
+    color: var(--color-fg);
+    margin-bottom: var(--space-2);
+  }
+  .trust-card p {
+    font-family: var(--font-body);
+    font-size: 0.98rem;
+    line-height: 1.65;
+    color: var(--color-gray);
+    margin: 0;
+  }
+
+  @media (max-width: 900px) {
+    .trust-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

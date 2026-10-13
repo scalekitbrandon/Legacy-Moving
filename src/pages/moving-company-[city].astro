@@ -1,0 +1,13 @@
+---
+import AreaPage from '../components/AreaPage.astro';
+import CityPage from '../components/CityPage.astro';
+import { areas } from '../data/areas';
+
+export function getStaticPaths() {
+  return areas.map((area) => ({ params: { city: area.slug }, props: { area } }));
+}
+
+const { area } = Astro.props;
+---
+
+{area.guide ? <CityPage area={area} /> : <AreaPage area={area} />}

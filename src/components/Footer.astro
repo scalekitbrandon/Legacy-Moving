@@ -1,0 +1,194 @@
+---
+interface LinkGroup {
+  heading: string;
+  links: { label: string; href: string }[];
+}
+
+interface Props {
+  logoText?: string;
+  groups?: LinkGroup[];
+  /** NAP block — only pass fields the client has confirmed, never a guess. */
+  phone?: string;
+  email?: string;
+  address?: string;
+}
+
+const { logoText = 'Logo', groups = [], phone, email, address } = Astro.props;
+const year = new Date().getFullYear();
+const hasNap = Boolean(phone || email || address);
+---
+
+<footer class="site-footer">
+  <div class="container footer-top">
+    <div class="footer-brand">
+      <img class="footer-logo" src="/logo.png" alt={logoText} width="1138" height="660" />
+      <p class="footer-tagline">
+        Local and long-distance moving across Bozeman and Southwest Montana. Licensed, insured, and built on
+        itemized quotes with no surprises on moving day.
+      </p>
+      {hasNap && (
+        <ul class="footer-nap">
+          {address && <li>{address}</li>}
+          {phone && (
+            <li>
+              <a href={`tel:${phone.replace(/[^\d+]/g, '')}`}>{phone}</a>
+            </li>
+          )}
+          {email && (
+            <li>
+              <a href={`mailto:${email}`}>{email}</a>
+            </li>
+          )}
+        </ul>
+      )}
+      <a class="footer-cta" href="/#quote">Get a Free Quote</a>
+    </div>
+
+    <div class="footer-groups">
+      {groups.map((group) => (
+        <div class="footer-group">
+          <h4>{group.heading}</h4>
+          <ul>
+            {group.links.map((link) => (
+              <li><a href={link.href}>{link.label}</a></li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="container footer-bottom">
+    <p class="footer-copyright">&copy; {year} {logoText}. All rights reserved.</p>
+    {/* Standing rule for every site built from this starter kit — do not
+        remove or make optional. See astro-dept SKILL.md Universal Standards. */}
+    <p class="built-by">Website by <a href="https://scalekit.io" target="_blank" rel="noopener noreferrer">ScaleKit.io</a></p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--color-dark);
+    color: var(--color-dark-fg);
+  }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1.3fr 2fr;
+    gap: var(--space-7);
+    padding-block: var(--space-7) var(--space-6);
+  }
+
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .footer-logo {
+    height: 48px;
+    width: auto;
+    margin-bottom: var(--space-4);
+  }
+  .footer-tagline {
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.65);
+    max-width: 36ch;
+    margin: 0 0 var(--space-4);
+  }
+  .footer-nap {
+    list-style: none;
+    margin: 0 0 var(--space-5);
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+  .footer-nap a {
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+  .footer-cta {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 24px;
+    border-radius: var(--radius-pill);
+    background: var(--color-primary);
+    color: var(--color-primary-fg);
+    text-decoration: none;
+    font-weight: 700;
+    font-family: var(--font-heading);
+    font-size: 0.92rem;
+  }
+
+  .footer-groups {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-5);
+  }
+  .footer-group h4 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-primary);
+    margin-bottom: var(--space-3);
+  }
+  .footer-group ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .footer-group a {
+    color: rgba(255, 255, 255, 0.75);
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+  .footer-group a:hover {
+    color: #ffffff;
+  }
+
+  .footer-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    padding-block: var(--space-4);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+  }
+  .footer-copyright {
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.55);
+    margin: 0;
+  }
+  .built-by {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.45);
+    margin: 0;
+  }
+  .built-by a {
+    color: inherit;
+  }
+
+  @media (max-width: 900px) {
+    .footer-top {
+      grid-template-columns: 1fr;
+    }
+    .footer-groups {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 560px) {
+    .footer-groups {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

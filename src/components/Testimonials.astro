@@ -1,0 +1,190 @@
+---
+// Real Google reviews for Legacy Moving Co.
+const GOOGLE_REVIEWS_URL = 'https://share.google/IYHOwFRTouW91pgFU';
+
+interface Testimonial {
+  quote: string;
+  name: string;
+  location: string;
+}
+
+const testimonials: Testimonial[] = [
+  {
+    quote:
+      'Beau and his crew were incredible to work with. They are responsive, kind, and so helpful. I could not recommend them more highly for any moving needs!!!!',
+    name: 'Sarah Skoglund',
+    location: 'Google Review',
+  },
+  {
+    quote: 'Helped me move my studio. Best in the business. Hard working and good communication.',
+    name: 'Backwood Menace Music',
+    location: 'Google Review',
+  },
+  {
+    quote: 'Very experienced, very patient and the job was done with care. Thank you!',
+    name: 'Tyler Erickson',
+    location: 'Google Review',
+  },
+];
+---
+
+<section class="testimonials" id="reviews">
+  <div class="container testimonials-inner">
+    <div class="testimonials-header">
+      <h2>What Our <span class="accent">Customers Say</span></h2>
+      <p>Real feedback from real moves — see why homeowners trust Legacy.</p>
+    </div>
+
+    <div class="testimonials-grid">
+      {testimonials.map((t) => (
+        <div class="testimonial-card">
+          <div class="testimonial-stars" aria-hidden="true">
+            {Array.from({ length: 5 }).map(() => (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2 14.7 9h7.3l-5.9 4.3L18.1 21 12 16.6 5.9 21l2-7.7L2 9h7.3L12 2z" />
+              </svg>
+            ))}
+          </div>
+
+          <p class="testimonial-quote">"{t.quote}"</p>
+
+          <div class="testimonial-person">
+            <span class="testimonial-avatar" aria-hidden="true">{t.name.replace(/[^A-Za-z]/g, '').slice(0, 1) || '?'}</span>
+            <span class="testimonial-meta">
+              <span class="testimonial-name">{t.name}</span>
+              <span class="testimonial-location">{t.location}</span>
+            </span>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="testimonials-cta">
+      <a href={GOOGLE_REVIEWS_URL} target="_blank" rel="noopener noreferrer">
+        See all reviews
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonials {
+    background: var(--color-muted);
+    padding-block: var(--space-8);
+    scroll-margin-top: 96px;
+  }
+
+  .testimonials-header {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto var(--space-7);
+  }
+  .testimonials-header h2 {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: clamp(2.4rem, 4vw, 3.4rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--color-fg);
+    margin-bottom: var(--space-3);
+  }
+  .testimonials-header h2 .accent {
+    color: var(--color-primary);
+  }
+  .testimonials-header p {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    color: var(--color-gray);
+  }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-5);
+  }
+
+  .testimonial-card {
+    background: #ffffff;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .testimonial-stars {
+    display: flex;
+    gap: 3px;
+    color: var(--color-primary);
+    margin-bottom: var(--space-3);
+  }
+
+  .testimonial-quote {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--color-fg);
+    margin-bottom: var(--space-5);
+    flex: 1;
+  }
+
+  .testimonial-person {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+  .testimonial-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: var(--color-dark);
+    color: var(--color-primary);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+  .testimonial-meta {
+    display: flex;
+    flex-direction: column;
+  }
+  .testimonial-name {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--color-fg);
+  }
+  .testimonial-location {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: var(--color-gray);
+  }
+
+  .testimonials-cta {
+    text-align: center;
+    margin-top: var(--space-7);
+  }
+  .testimonials-cta a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--color-accent);
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  @media (max-width: 900px) {
+    .testimonials-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

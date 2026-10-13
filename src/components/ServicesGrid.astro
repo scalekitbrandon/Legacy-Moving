@@ -1,0 +1,236 @@
+---
+import { icons } from '../data/icons';
+import { services } from '../data/services';
+---
+
+<section class="services">
+  <div class="container">
+    <div class="services-header">
+      <h2>Our <span class="accent">Moving Services</span></h2>
+      <p>
+        Moving should feel simple, organized, and stress-free. Legacy Moving Co. provides professional local and
+        long-distance moving services throughout Bozeman, Big Sky, Belgrade, Livingston, and Southwest Montana.
+      </p>
+      <p>
+        From apartments and family homes to luxury residences, art, antiques, and high-value belongings, our
+        experienced moving team handles every move with attention to detail, and respect for your property.
+      </p>
+    </div>
+
+    <div class="services-grid">
+      {services.map((service) => (
+        <div class="service-card">
+          <div class="service-icon-bar">
+            <span class="service-icon-badge" aria-hidden="true">
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                set:html={icons[service.icon]}
+              />
+            </span>
+          </div>
+          <div class="service-body">
+            <h3>{service.cardTitle}</h3>
+            <p>{service.cardBody}</p>
+            <a class="service-link" href={`/services/${service.slug}/`}>
+              Learn More
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="services-cta">
+      <p>Ready to book one of these services? Get a free, no-obligation quote in 60 seconds.</p>
+      <div class="services-cta-actions">
+        <a class="btn-primary" href="#quote">
+          Get My Free Quote
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
+        <a class="btn-secondary" href="tel:406-539-9641">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path
+              d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.4 0 .8-.2 1L6.6 10.8z"
+              fill="currentColor"
+            />
+          </svg>
+          406-539-9641
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .services {
+    background: var(--color-bg);
+    padding-block: var(--space-8);
+  }
+
+  .services-header {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto var(--space-7);
+  }
+  .services-header h2 {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: clamp(2.4rem, 4vw, 3.4rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--color-fg);
+    margin-bottom: var(--space-3);
+  }
+  .services-header h2 .accent {
+    color: var(--color-primary);
+  }
+  .services-header p {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--color-gray);
+    margin-bottom: var(--space-3);
+  }
+  .services-header p:last-child {
+    margin-bottom: 0;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-5);
+  }
+
+  .service-card {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 2px solid var(--color-dark);
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.15s ease;
+  }
+  .service-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .service-icon-bar {
+    background: var(--color-dark);
+    padding: var(--space-4);
+  }
+  .service-icon-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-sm);
+    background: var(--color-primary);
+    color: var(--color-dark);
+  }
+
+  .service-body {
+    padding: var(--space-4) var(--space-4) var(--space-5);
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .service-body h3 {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 1.25rem;
+    color: var(--color-fg);
+    text-transform: uppercase;
+    letter-spacing: -0.005em;
+    margin-bottom: var(--space-2);
+  }
+  .service-body p {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--color-gray);
+    margin-bottom: var(--space-3);
+    flex: 1;
+  }
+
+  .service-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--color-accent);
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  .services-cta {
+    text-align: center;
+    margin-top: var(--space-7);
+  }
+  .services-cta p {
+    font-family: var(--font-body);
+    color: var(--color-gray);
+    font-size: 1.05rem;
+    margin-bottom: var(--space-4);
+  }
+  .services-cta-actions {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 26px;
+    border-radius: var(--radius-pill);
+    background: var(--color-primary);
+    color: var(--color-primary-fg);
+    text-decoration: none;
+    font-weight: 700;
+    font-family: var(--font-heading);
+  }
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 26px;
+    border-radius: var(--radius-pill);
+    background: var(--color-dark);
+    color: var(--color-dark-fg);
+    text-decoration: none;
+    font-weight: 700;
+    font-family: var(--font-heading);
+  }
+
+  @media (max-width: 1100px) {
+    .services-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  @media (max-width: 860px) {
+    .services-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 620px) {
+    .services-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

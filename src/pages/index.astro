@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import TrustBar from '../components/TrustBar.astro';
+import HowItWorks from '../components/HowItWorks.astro';
+import WhyUs from '../components/WhyUs.astro';
+import TrustPoints from '../components/TrustPoints.astro';
+import ServicesGrid from '../components/ServicesGrid.astro';
+import ServiceAreas from '../components/ServiceAreas.astro';
+import PricingGuarantee from '../components/PricingGuarantee.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Faq from '../components/Faq.astro';
+import ClosingCta from '../components/ClosingCta.astro';
+import Footer from '../components/Footer.astro';
+import LocalBusinessSchema from '../components/LocalBusinessSchema.astro';
+import { navLinks, footerGroups, PHONE, EMAIL } from '../data/site';
+import { serviceAreas } from '../data/areas';
+
+---
+
+<BaseLayout
+  title="Legacy Moving Company | Bozeman, Montana Local Movers"
+  description="Legacy Moving Company provides careful, reliable local residential moving services in Bozeman, Montana. Get a free, no-obligation quote today."
+>
+  <LocalBusinessSchema
+    slot="header"
+    name="Legacy Moving Co."
+    url={Astro.site.toString()}
+    businessType="MovingCompany"
+    phone={PHONE}
+    email={EMAIL}
+    logo={new URL('/logo.png', Astro.site).toString()}
+    areaServed={serviceAreas}
+    priceRange="$$"
+    openingHours="Mo-Su 00:00-23:59"
+  />
+  <Header slot="header" links={navLinks} phone={PHONE} ctaLabel="Get a Quote" ctaHref="/#quote" />
+
+  <Hero backgroundImage="https://assets.cdn.filesafe.space/xqDaZG0jn1TlXwXyX8Jk/media/6ac6b6d68c077584b4e29459.png" />
+
+  <TrustBar />
+
+  <WhyUs
+    phone="406-539-9641"
+    image="/legacy-moving-owner-unloading-truck-bozeman-mt.jpg"
+    imageAlt="Legacy Moving Co. owner wheeling boxes down a ramp from a moving truck during a residential move in Bozeman, Montana"
+  />
+
+  <TrustPoints />
+
+  <ServicesGrid />
+
+  <ServiceAreas phone="406-539-9641" region="Bozeman, Montana" />
+
+  <PricingGuarantee />
+
+  <Testimonials />
+
+  <HowItWorks />
+
+  <Faq />
+
+  <ClosingCta phone="406-539-9641" />
+
+  <Footer slot="footer" logoText="Legacy Moving Co." groups={footerGroups} phone={PHONE} email={EMAIL} />
+</BaseLayout>

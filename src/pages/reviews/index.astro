@@ -1,0 +1,76 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import Testimonials from '../../components/Testimonials.astro';
+import ClosingCta from '../../components/ClosingCta.astro';
+import BreadcrumbSchema from '../../components/BreadcrumbSchema.astro';
+import { navLinks, footerGroups, PHONE, EMAIL } from '../../data/site';
+
+const breadcrumbItems = [
+  { label: 'Home', url: new URL('/', Astro.site).toString() },
+  { label: 'Reviews', url: new URL('/reviews/', Astro.site).toString() },
+];
+---
+
+<BaseLayout
+  title="Reviews | Legacy Moving Co. — Bozeman, MT Movers"
+  description="See what customers are saying about Legacy Moving Co., a Bozeman, Montana moving company serving the Gallatin Valley and Southwest Montana."
+>
+  <BreadcrumbSchema slot="header" items={breadcrumbItems} />
+  <Header slot="header" links={navLinks} phone={PHONE} ctaLabel="Get a Quote" ctaHref="/#quote" />
+
+  <section class="reviews-hero">
+    <div class="container">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span aria-hidden="true">/</span>
+        <span>Reviews</span>
+      </nav>
+      <h1>Reviews</h1>
+      <p class="reviews-intro">
+        Real feedback from Legacy Moving customers across Bozeman and Southwest Montana.
+      </p>
+    </div>
+  </section>
+
+  <Testimonials />
+
+  <ClosingCta phone={PHONE} quoteHref="/#quote" />
+
+  <Footer slot="footer" logoText="Legacy Moving Co." groups={footerGroups} phone={PHONE} email={EMAIL} />
+</BaseLayout>
+
+<style>
+  .reviews-hero {
+    background: var(--color-dark);
+    color: var(--color-dark-fg);
+    padding-block: var(--space-7);
+  }
+  .crumbs {
+    display: flex;
+    gap: 8px;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: var(--space-4);
+  }
+  .crumbs a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+  }
+  .reviews-hero h1 {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: clamp(2.2rem, 4.2vw, 3.2rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    margin-bottom: var(--space-3);
+  }
+  .reviews-intro {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.82);
+  }
+</style>

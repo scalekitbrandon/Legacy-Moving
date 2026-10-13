@@ -1,0 +1,155 @@
+---
+interface QA {
+  q: string;
+  a: string;
+}
+
+const faqs: QA[] = [
+  {
+    q: 'How far in advance should I book my move?',
+    a: "We recommend booking 2-4 weeks out, especially for weekend or end-of-month dates when our calendar fills up fastest. That said, we know moves come together quickly — call us and we'll always tell you honestly what's available.",
+  },
+  {
+    q: 'Is your quote binding, or can the price change on moving day?',
+    a: "The number we quote you is the number you pay. We walk through your inventory up front so there are no surprise line items once the truck is loaded — see our Pricing Guarantee above for the full breakdown.",
+  },
+  {
+    q: 'Do you handle building permits and COIs, or is that on me?',
+    a: "We handle it. If your building requires a certificate of insurance or a reserved freight elevator window, our team coordinates directly with your building management ahead of move day.",
+  },
+  {
+    q: 'What happens if something gets damaged during the move?',
+    a: "Every move is covered by basic valuation protection at no extra cost, and full-value coverage is available if you want added peace of mind. If anything is damaged, we make it right — no runaround.",
+  },
+  {
+    q: 'Do you move walk-up buildings and apartments with no elevator?',
+    a: "Yes. Walk-ups are one of the most common moves we do. Let us know your floor and unit layout ahead of time so we can staff the crew and equipment accordingly.",
+  },
+  {
+    q: 'Can I book a same-day or last-minute move?',
+    a: "Sometimes — it depends on crew availability. Call us at 406-539-9641 and we'll check the schedule in real time rather than making you guess.",
+  },
+  {
+    q: 'Do you pack for me, or do I need to have everything ready before you arrive?',
+    a: "Both options are available. Book full packing service and we'll wrap and box everything ourselves, or handle your own packing and our crew focuses on loading, transport, and careful placement at your new home.",
+  },
+];
+---
+
+<section class="faq">
+  <div class="container faq-inner">
+    <div class="faq-header">
+      <h2>Frequently Asked <span class="accent">Questions</span></h2>
+      <p>Everything you need to know about moving with Legacy Moving</p>
+    </div>
+
+    <div class="faq-list">
+      {faqs.map((item) => (
+        <details class="faq-item">
+          <summary>
+            <span>{item.q}</span>
+            <svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </summary>
+          <p class="faq-answer">{item.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq {
+    background: var(--color-bg);
+    padding-block: var(--space-8);
+  }
+
+  .faq-header {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto var(--space-7);
+  }
+  .faq-header h2 {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: clamp(2.4rem, 4vw, 3.4rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--color-fg);
+    margin-bottom: var(--space-3);
+  }
+  .faq-header h2 .accent {
+    color: var(--color-primary);
+  }
+  .faq-header p {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    color: var(--color-gray);
+  }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    max-width: 820px;
+    margin: 0 auto;
+  }
+
+  .faq-item {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: #ffffff;
+    padding: var(--space-4) var(--space-5);
+  }
+  .faq-item + .faq-item {
+    margin-top: 0;
+  }
+  .faq-item[open] {
+    border-color: var(--color-primary);
+  }
+
+  .faq-item summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    cursor: pointer;
+    list-style: none;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--color-fg);
+  }
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-item .chevron {
+    flex-shrink: 0;
+    color: var(--color-gray);
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+  .faq-item[open] .chevron {
+    transform: rotate(180deg);
+    color: var(--color-primary);
+  }
+
+  .faq-answer {
+    font-family: var(--font-body);
+    font-size: 0.98rem;
+    line-height: 1.7;
+    color: var(--color-gray);
+    margin-top: var(--space-3);
+    padding-right: var(--space-6);
+  }
+
+  @media (max-width: 640px) {
+    .faq-item summary {
+      font-size: 0.98rem;
+    }
+    .faq-answer {
+      padding-right: 0;
+    }
+  }
+</style>

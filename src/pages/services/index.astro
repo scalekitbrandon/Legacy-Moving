@@ -1,0 +1,183 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import ClosingCta from '../../components/ClosingCta.astro';
+import BreadcrumbSchema from '../../components/BreadcrumbSchema.astro';
+import { services } from '../../data/services';
+import { icons } from '../../data/icons';
+import { navLinks, footerGroups, PHONE, EMAIL } from '../../data/site';
+
+const breadcrumbItems = [
+  { label: 'Home', url: new URL('/', Astro.site).toString() },
+  { label: 'Services', url: new URL('/services/', Astro.site).toString() },
+];
+---
+
+<BaseLayout
+  title="Moving Services in Bozeman, MT | Legacy Moving Co."
+  description="Residential, art, long-distance, packing, and white glove moving from Legacy Moving Co. in Bozeman, Montana. Get a free, no-obligation quote."
+>
+  <BreadcrumbSchema slot="header" items={breadcrumbItems} />
+  <Header slot="header" links={navLinks} phone={PHONE} ctaLabel="Get a Quote" ctaHref="/#quote" />
+
+  <section class="hub-hero">
+    <div class="container">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span aria-hidden="true">/</span>
+        <span>Services</span>
+      </nav>
+      <h1>Moving Services in Bozeman and Southwest Montana</h1>
+      <p class="hub-intro">
+        Moving should feel simple, organized, and stress-free. Legacy Moving Co. provides professional local and
+        long-distance moving services throughout Bozeman, Big Sky, Belgrade, Livingston, and Southwest Montana.
+      </p>
+    </div>
+  </section>
+
+  <section class="hub-grid-section">
+    <div class="container">
+      <div class="hub-grid">
+        {services.map((service) => (
+          <a class="hub-card" href={`/services/${service.slug}/`}>
+            <span class="hub-icon" aria-hidden="true">
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                set:html={icons[service.icon]}
+              />
+            </span>
+            <span class="hub-name">{service.cardTitle}</span>
+            <span class="hub-body">{service.cardBody}</span>
+            <span class="hub-more">
+              View service
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <ClosingCta phone={PHONE} quoteHref="/#quote" />
+
+  <Footer slot="footer" logoText="Legacy Moving Co." groups={footerGroups} phone={PHONE} email={EMAIL} />
+</BaseLayout>
+
+<style>
+  .hub-hero {
+    background: var(--color-dark);
+    color: var(--color-dark-fg);
+    padding-block: var(--space-7) var(--space-7);
+  }
+  .crumbs {
+    display: flex;
+    gap: 8px;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: var(--space-4);
+  }
+  .crumbs a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+  }
+  .hub-hero h1 {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: clamp(2.2rem, 4.2vw, 3.4rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    max-width: 24ch;
+    margin-bottom: var(--space-4);
+  }
+  .hub-intro {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.78);
+    max-width: 62ch;
+    margin: 0;
+  }
+
+  .hub-grid-section {
+    background: var(--color-bg);
+    padding-block: var(--space-8);
+  }
+  .hub-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-5);
+  }
+  .hub-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-5);
+    border: 2px solid var(--color-dark);
+    border-radius: var(--radius-lg);
+    background: #ffffff;
+    text-decoration: none;
+    color: var(--color-fg);
+    transition: transform 0.15s ease;
+  }
+  .hub-card:hover {
+    transform: translateY(-4px);
+  }
+  .hub-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-sm);
+    background: var(--color-primary);
+    color: var(--color-dark);
+    margin-bottom: var(--space-2);
+  }
+  .hub-name {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+  }
+  .hub-body {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--color-gray);
+    flex: 1;
+  }
+  .hub-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: var(--space-2);
+    color: var(--color-accent);
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  @media (max-width: 960px) {
+    .hub-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 620px) {
+    .hub-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
