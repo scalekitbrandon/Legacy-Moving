@@ -19,8 +19,8 @@ const { phone = '406-539-9641', image, imageAlt = 'Legacy Moving crew at work' }
 
       <p>
         We built Legacy Moving around one idea: your move should feel handled, not stressful.
-        Our licensed, insured crews cover local <span class="hl">residential moves</span>, careful
-        <span class="hl">packing services</span>, and <span class="hl">custom crating</span> —
+        Our licensed, insured crews cover local <a class="hl" href="/services/residential-moving/">residential moves</a>, careful
+        <a class="hl" href="/services/packing/">packing services</a>, and <a class="hl" href="/services/custom-crating/">custom crating</a> —
         all with the same crew from start to finish, so nothing gets lost in the handoff.
       </p>
 
@@ -97,6 +97,11 @@ const { phone = '406-539-9641', image, imageAlt = 'Legacy Moving crew at work' }
   .why-copy p .hl {
     color: var(--color-accent);
     font-weight: 600;
+    text-decoration: none;
+  }
+  a.hl:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 
   .why-actions {
